@@ -18,6 +18,7 @@ public class PostService {
     }
 
     public Post create(String title, String content, Member member) {
+        member.UpdateActivityScore(3);
         return postRepository.save(new Post(title, content, member));
     }
 

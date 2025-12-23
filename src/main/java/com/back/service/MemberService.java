@@ -22,7 +22,7 @@ public class MemberService {
             throw new DomainException("409-1", "이미 존재하는 username 입니다.");
         });
 
-        return memberRepository.save(new Member(username, password, nickname));
+        return memberRepository.save(new Member(username, password, nickname, 0));
     }
 
     public Optional<Member> findByUsername(String username) {

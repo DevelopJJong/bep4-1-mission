@@ -31,6 +31,7 @@ public class Post extends BaseIdAndTime {
 
         comment.add(comments);
 
+        member.UpdateActivityScore(1);
         return comments;
     }
 }
