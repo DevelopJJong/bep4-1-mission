@@ -6,6 +6,8 @@ import com.back.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -17,5 +19,9 @@ public class PostService {
 
     public Post create(String title, String content, Member member) {
         return postRepository.save(new Post(title, content, member));
+    }
+
+    public Optional<Post> findByPostId(int id) {
+        return postRepository.findById(id);
     }
 }

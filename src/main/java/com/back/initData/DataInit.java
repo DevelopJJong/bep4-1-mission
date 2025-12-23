@@ -2,6 +2,7 @@ package com.back.initData;
 
 import com.back.entity.Member;
 import com.back.entity.Post;
+import com.back.service.CommentService;
 import com.back.service.MemberService;
 import com.back.service.PostService;
 import jakarta.transaction.Transactional;
@@ -17,11 +18,14 @@ public class DataInit {
     private final DataInit self;
     private final MemberService memberService;
     private final PostService postService;
+    private final CommentService commentService;
 
-    public DataInit(@Lazy DataInit self, MemberService memberService, PostService postService) {
+
+    public DataInit(@Lazy DataInit self, MemberService memberService, PostService postService, CommentService commentService) {
         this.self = self;
         this.memberService = memberService;
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @Bean
@@ -29,6 +33,7 @@ public class DataInit {
         return args -> {
             self.makeBaseMembers();
             self.makeBasePost();
+            self.makeBaseComment();
         };
     }
 
@@ -56,5 +61,34 @@ public class DataInit {
         Post post4 = postService.create("4번", "4", memberService.findByUsername("user2").get());
         Post post5 = postService.create("5번", "5", memberService.findByUsername("user2").get());
         Post post6 = postService.create("6번", "6", memberService.findByUsername("user3").get());
+    }
+
+    @Transactional
+    public void makeBaseComment(){
+        if (commentService.count() > 0) return;
+
+        Post post1 = postService.findByPostId(1).get();
+        Post post2 = postService.findByPostId(2).get();
+        Post post3 = postService.findByPostId(3).get();
+        Post post4 = postService.findByPostId(4).get();
+        Post post5 = postService.findByPostId(5).get();
+        Post post6 = postService.findByPostId(6).get();
+
+        Member user1Member = memberService.findByUsername("user1").get();
+        Member user2Member = memberService.findByUsername("user2").get();
+        Member user3Member = memberService.findByUsername("user3").get();
+
+
+        post1.addComment(user1Member, "댓글1");
+        post1.addComment(user2Member, "댓글2");
+        post1.addComment(user3Member, "댓글3");
+
+        post2.addComment(user2Member, "댓글4");
+        post2.addComment(user2Member, "댓글5");
+
+        post3.addComment(user3Member, "댓글6");
+        post3.addComment(user3Member, "댓글7");
+
+        post4.addComment(user1Member, "댓글8");
     }
 }

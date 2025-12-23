@@ -1,0 +1,25 @@
+package com.back.entity;
+
+import com.back.jpa.entity.BaseIdAndTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Entity
+public class Comment extends BaseIdAndTime {
+    String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    public Comment(String content, Post post, Member member) {
+        this.content = content;
+        this.post = post;
+        this.member = member;
+    }
+}
