@@ -1,6 +1,6 @@
-package com.back.service;
+package com.back.boundedContext.post.service;
 
-import com.back.repository.CommentRepository;
+import com.back.boundedContext.post.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
