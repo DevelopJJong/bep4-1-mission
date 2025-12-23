@@ -2,7 +2,6 @@ package com.back.global.initData;
 
 import com.back.boundedContext.member.entity.Member;
 import com.back.boundedContext.post.entity.Post;
-import com.back.boundedContext.post.service.CommentService;
 import com.back.boundedContext.member.service.MemberService;
 import com.back.boundedContext.post.service.PostService;
 import jakarta.transaction.Transactional;
@@ -18,14 +17,12 @@ public class DataInit {
     private final DataInit self;
     private final MemberService memberService;
     private final PostService postService;
-    private final CommentService commentService;
 
 
-    public DataInit(@Lazy DataInit self, MemberService memberService, PostService postService, CommentService commentService) {
+    public DataInit(@Lazy DataInit self, MemberService memberService, PostService postService) {
         this.self = self;
         this.memberService = memberService;
         this.postService = postService;
-        this.commentService = commentService;
     }
 
     @Bean
@@ -55,17 +52,20 @@ public class DataInit {
         // 이미 존재하면 return
         if (postService.count() > 0) return;
 
-        Post post1 = postService.create("1번", "1", memberService.findByUsername("user1").get());
-        Post post2 = postService.create("2번", "2", memberService.findByUsername("user1").get());
-        Post post3 = postService.create("3번", "3", memberService.findByUsername("user1").get());
-        Post post4 = postService.create("4번", "4", memberService.findByUsername("user2").get());
-        Post post5 = postService.create("5번", "5", memberService.findByUsername("user2").get());
-        Post post6 = postService.create("6번", "6", memberService.findByUsername("user3").get());
+        Member user1Member = memberService.findByUsername("user1").get();
+        Member user2Member = memberService.findByUsername("user2").get();
+        Member user3Member = memberService.findByUsername("user3").get();
+
+        Post post1 = postService.create("1번", "1", user1Member);
+        Post post2 = postService.create("2번", "2", user1Member);
+        Post post3 = postService.create("3번", "3", user1Member);
+        Post post4 = postService.create("4번", "4", user2Member);
+        Post post5 = postService.create("5번", "5", user2Member);
+        Post post6 = postService.create("6번", "6", user3Member);
     }
 
     @Transactional
     public void makeBaseComment(){
-        if (commentService.count() > 0) return;
 
         Post post1 = postService.findByPostId(1).get();
         Post post2 = postService.findByPostId(2).get();
@@ -78,6 +78,7 @@ public class DataInit {
         Member user2Member = memberService.findByUsername("user2").get();
         Member user3Member = memberService.findByUsername("user3").get();
 
+        if (post1.hasComments()) return;
 
         post1.addComment(user1Member, "댓글1");
         post1.addComment(user2Member, "댓글2");

@@ -7,12 +7,14 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Member extends BaseIdAndTime {
     @Column(unique = true)
@@ -37,7 +39,7 @@ public class Member extends BaseIdAndTime {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comment = new ArrayList<>();
 
-    public int UpdateActivityScore(int score) {
+    public int updateActivityScore(int score) {
         return this.activityScore += score;
     }
 }
