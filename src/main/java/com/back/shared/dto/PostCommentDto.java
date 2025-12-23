@@ -1,6 +1,6 @@
 package com.back.shared.dto;
 
-import com.back.boundedContext.post.entity.Comment;
+import com.back.boundedContext.post.domain.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
