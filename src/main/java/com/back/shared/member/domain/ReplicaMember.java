@@ -9,11 +9,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-import static lombok.AccessLevel.PROTECTED;
-
 @MappedSuperclass
 @Getter
-@Setter(value = PROTECTED)
+@Setter
 @NoArgsConstructor
 public abstract class ReplicaMember extends BaseMember {
     @Id

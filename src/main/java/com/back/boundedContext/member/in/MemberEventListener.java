@@ -17,7 +17,6 @@ import static org.springframework.transaction.event.TransactionPhase.AFTER_COMMI
 public class MemberEventListener {
     private final MemberFacade memberFacade;
 
-
     @TransactionalEventListener(phase = AFTER_COMMIT)
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(PostCreatedEvent event) {
