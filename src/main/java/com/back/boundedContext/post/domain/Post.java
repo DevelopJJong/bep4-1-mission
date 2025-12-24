@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "POST_POST")
 public class Post extends BaseIdAndTime {
     private String title;
     private String content;

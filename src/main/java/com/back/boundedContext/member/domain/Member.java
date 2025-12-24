@@ -3,10 +3,7 @@ package com.back.boundedContext.member.domain;
 import com.back.boundedContext.post.domain.Comment;
 import com.back.boundedContext.post.domain.Post;
 import com.back.global.jpa.entity.BaseIdAndTime;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "MEMBER_MEMBER")
 public class Member extends BaseIdAndTime {
     @Column(unique = true)
     private String username;

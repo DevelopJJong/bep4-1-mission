@@ -5,12 +5,14 @@ import com.back.global.jpa.entity.BaseIdAndTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Entity
 @Getter
+@Table(name = "POST_COMMENT")
 public class Comment extends BaseIdAndTime {
     String content;
 
