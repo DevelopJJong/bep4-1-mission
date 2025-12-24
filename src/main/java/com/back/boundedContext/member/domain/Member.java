@@ -1,43 +1,21 @@
 package com.back.boundedContext.member.domain;
 
-import com.back.boundedContext.post.domain.Comment;
-import com.back.boundedContext.post.domain.Post;
-import com.back.global.jpa.entity.BaseIdAndTime;
-import jakarta.persistence.*;
+import com.back.shared.member.domain.SourceMember;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @Table(name = "MEMBER_MEMBER")
-public class Member extends BaseIdAndTime {
-    @Column(unique = true)
-    private String username;
-
-    private String password;
-
-    private String nickname;
-
-    private int activityScore;
-
-    public Member(String username, String password, String nickname, int activityScore) {
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.activityScore = activityScore;
+public class Member extends SourceMember {
+    public Member(String username, String password, String nickname) {
+        super(username, password, nickname);
     }
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Post> post = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comment = new ArrayList<>();
-
-    public int updateActivityScore(int score) {
-        return this.activityScore += score;
+    public int updateActivityScore(int amount) {
+        setActivityScore(getActivityScore() + amount);
+        return getActivityScore();
     }
 }
