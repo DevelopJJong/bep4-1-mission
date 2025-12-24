@@ -39,12 +39,11 @@ public class PostFacade {
         PostMember postMember = new PostMember(
                 member.getUsername(),
                 "",
-                member.getNickname()
+                member.getNickname(),
+                member.getId(),
+                member.getCreateDate(),
+                member.getModifyDate()
         );
-
-        postMember.setId(member.getId());
-        postMember.setCreateDate(member.getCreateDate());
-        postMember.setModifyDate(member.getModifyDate());
         return postMemberRepository.save(postMember);
     }
 }

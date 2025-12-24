@@ -19,7 +19,10 @@ public abstract class ReplicaMember extends BaseMember {
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
 
-    public ReplicaMember(String username, String password, String nickname) {
+    public ReplicaMember(String username, String password, String nickname, int id, LocalDateTime createDate, LocalDateTime modifyDate) {
         super(username, password, nickname);
+        this.id = id;
+        this.createDate = createDate;
+        this.modifyDate = modifyDate;
     }
 }
