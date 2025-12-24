@@ -4,6 +4,7 @@ import com.back.boundedContext.member.app.MemberFacade;
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.app.PostFacade;
 import com.back.boundedContext.post.domain.Post;
+import com.back.global.rsData.RsData;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
@@ -56,12 +57,23 @@ public class DataInit {
         Member user2Member = memberFacade.findByUsername("user2").get();
         Member user3Member = memberFacade.findByUsername("user3").get();
 
-        Post post1 = postFacade.create("1번", "1", user1Member).getData();
-        Post post2 = postFacade.create("2번", "2", user1Member).getData();
-        Post post3 = postFacade.create("3번", "3", user1Member).getData();
-        Post post4 = postFacade.create("4번", "4", user2Member).getData();
-        Post post5 = postFacade.create("5번", "5", user2Member).getData();
-        Post post6 = postFacade.create("6번", "6", user3Member).getData();
+        RsData<Post> post1 = postFacade.create("1번", "1", user1Member);
+        log.debug(post1.getMsg());
+
+        RsData<Post> post2 = postFacade.create("2번", "2", user1Member);
+        log.debug(post2.getMsg());
+
+        RsData<Post> post3 = postFacade.create("3번", "3", user1Member);
+        log.debug(post3.getMsg());
+
+        RsData<Post> post4 = postFacade.create("4번", "4", user2Member);
+        log.debug(post4.getMsg());
+
+        RsData<Post> post5 = postFacade.create("5번", "5", user2Member);
+        log.debug(post5.getMsg());
+
+        RsData<Post> post6 = postFacade.create("6번", "6", user3Member);
+        log.debug(post6.getMsg());
     }
 
     @Transactional
