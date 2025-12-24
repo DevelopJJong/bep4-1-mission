@@ -56,12 +56,12 @@ public class DataInit {
         Member user2Member = memberFacade.findByUsername("user2").get();
         Member user3Member = memberFacade.findByUsername("user3").get();
 
-        Post post1 = postFacade.create("1번", "1", user1Member);
-        Post post2 = postFacade.create("2번", "2", user1Member);
-        Post post3 = postFacade.create("3번", "3", user1Member);
-        Post post4 = postFacade.create("4번", "4", user2Member);
-        Post post5 = postFacade.create("5번", "5", user2Member);
-        Post post6 = postFacade.create("6번", "6", user3Member);
+        Post post1 = postFacade.create("1번", "1", user1Member).getData();
+        Post post2 = postFacade.create("2번", "2", user1Member).getData();
+        Post post3 = postFacade.create("3번", "3", user1Member).getData();
+        Post post4 = postFacade.create("4번", "4", user2Member).getData();
+        Post post5 = postFacade.create("5번", "5", user2Member).getData();
+        Post post6 = postFacade.create("6번", "6", user3Member).getData();
     }
 
     @Transactional
