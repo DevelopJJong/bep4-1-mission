@@ -20,9 +20,9 @@ public class Post extends BaseIdAndTime {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private PostMember member;
 
-    public Post(String title, String content, Member member) {
+    public Post(String title, String content, PostMember member) {
         this.title = title;
         this.content = content;
         this.member = member;

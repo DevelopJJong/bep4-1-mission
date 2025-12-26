@@ -4,6 +4,7 @@ import com.back.boundedContext.member.app.MemberFacade;
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.app.PostFacade;
 import com.back.boundedContext.post.domain.Post;
+import com.back.boundedContext.post.domain.PostMember;
 import com.back.global.rsData.RsData;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -53,9 +54,9 @@ public class DataInit {
         // 이미 존재하면 return
         if (postFacade.count() > 0) return;
 
-        Member user1Member = memberFacade.findByUsername("user1").get();
-        Member user2Member = memberFacade.findByUsername("user2").get();
-        Member user3Member = memberFacade.findByUsername("user3").get();
+        PostMember user1Member = postFacade.findByUsername("user1").get();
+        PostMember user2Member = postFacade.findByUsername("user2").get();
+        PostMember user3Member = postFacade.findByUsername("user3").get();
 
         RsData<Post> post1 = postFacade.create("1번", "1", user1Member);
         log.debug(post1.getMsg());

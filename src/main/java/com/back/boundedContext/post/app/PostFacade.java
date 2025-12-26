@@ -1,6 +1,5 @@
 package com.back.boundedContext.post.app;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
 import com.back.boundedContext.post.out.PostMemberRepository;
@@ -26,13 +25,18 @@ public class PostFacade {
     }
 
     @Transactional
-    public RsData<Post> create(String title, String content, Member member) {
+    public RsData<Post> create(String title, String content, PostMember member) {
         return postCreateUseCase.create(title, content, member);
     }
 
     @Transactional
     public Optional<Post> findByPostId(int id) {
         return postRepository.findById(id);
+    }
+
+    @Transactional
+    public Optional<PostMember> findByUsername(String username){
+        return postMemberRepository.findByUsername(username);
     }
 
     public PostMember syncMember(MemberDto member){
