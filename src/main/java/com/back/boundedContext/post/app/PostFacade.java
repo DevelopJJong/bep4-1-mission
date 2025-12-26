@@ -42,7 +42,8 @@ public class PostFacade {
                 member.getNickname(),
                 member.getId(),
                 member.getCreateDate(),
-                member.getModifyDate()
+                member.getModifyDate(),
+                member.getActivityScore()
         );
         return postMemberRepository.save(postMember);
     }
