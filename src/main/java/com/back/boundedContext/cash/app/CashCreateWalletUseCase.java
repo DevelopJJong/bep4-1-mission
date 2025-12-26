@@ -17,7 +17,7 @@ public class CashCreateWalletUseCase {
 
     @Transactional
     public Wallet createWallet(CashMemberDto holder){
-        CashMember member = cashMemberRepository.getReferenceById(holder.getId());
+        CashMember member = cashMemberRepository.getReferenceById(holder.getId()); // getReferenceById 사용하면 쿼리를 날리지 않는다. 최적화에 좋음
         Wallet wallet = new Wallet(member);
 
         return walletRepository.save(wallet);
