@@ -31,7 +31,7 @@ public class Post extends BaseIdAndTime {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comment = new ArrayList<>();
 
-    public Comment addComment(Member member, String content) {
+        public Comment addComment(PostMember member, String content) {
         Comment comments = new Comment(content, this, member);
 
         comment.add(comments);

@@ -1,6 +1,5 @@
 package com.back.boundedContext.post.domain;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.global.jpa.entity.BaseIdAndTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,9 +19,9 @@ public class Comment extends BaseIdAndTime {
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private PostMember member;
 
-    public Comment(String content, Post post, Member member) {
+    public Comment(String content, Post post, PostMember member) {
         this.content = content;
         this.post = post;
         this.member = member;
