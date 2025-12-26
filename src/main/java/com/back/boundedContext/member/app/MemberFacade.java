@@ -4,9 +4,9 @@ import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.member.domain.MemberPolicy;
 import com.back.boundedContext.member.out.MemberRepository;
 import com.back.global.rsData.RsData;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,22 +17,22 @@ public class MemberFacade {
     private final MemberJoinUseCase memberJoinUseCase;
     private final MemberPolicy memberPolicy;
 
-    @Transactional()
+    @Transactional(readOnly = true)
     public long count(){
         return memberRepository.count();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public RsData<Member> join(String username, String password, String nickname) {
         return memberJoinUseCase.join(username, password, nickname);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Member> findByUsername(String username) {
         return memberRepository.findByUsername(username);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Member> findById(int id) {
         return memberRepository.findById(id);
     }

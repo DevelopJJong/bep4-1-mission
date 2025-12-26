@@ -8,6 +8,7 @@ import com.back.global.rsData.RsData;
 import com.back.shared.member.out.MemberApiClient;
 import com.back.shared.post.dto.PostDto;
 import com.back.shared.post.event.PostCreatedEvent;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class PostCreateUseCase {
     private final EventPublisher eventPublisher;
     private final MemberApiClient memberApiClient;
 
+    @Transactional
     public RsData<Post> create(String title, String content, PostMember member) {
         Post post = postRepository.save(new Post(title, content, member));
 

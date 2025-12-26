@@ -6,9 +6,9 @@ import com.back.boundedContext.post.out.PostMemberRepository;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.rsData.RsData;
 import com.back.shared.member.dto.MemberDto;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,22 +19,22 @@ public class PostFacade {
     private final PostCreateUseCase postCreateUseCase;
     private final PostMemberRepository postMemberRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public long count() {
         return postRepository.count();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public RsData<Post> create(String title, String content, PostMember member) {
         return postCreateUseCase.create(title, content, member);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Post> findByPostId(int id) {
         return postRepository.findById(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<PostMember> findByUsername(String username){
         return postMemberRepository.findByUsername(username);
     }
