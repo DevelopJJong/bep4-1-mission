@@ -23,6 +23,9 @@ public class MarketSupport {
         return marketMemberRepository.findByUsername(username);
     }
 
+
+
+
     @Transactional(readOnly = true)
     public Optional<MarketMember> findById(Integer id) {
         return marketMemberRepository.findById(id);
