@@ -2,6 +2,7 @@ package com.back.boundedContext.market.app;
 
 import com.back.boundedContext.market.domain.MarketMember;
 import com.back.boundedContext.market.out.MarketMemberRepository;
+import com.back.boundedContext.market.out.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MarketSupport {
     private final MarketMemberRepository marketMemberRepository;
+    private final ProductRepository productRepository;
 
     @Transactional(readOnly = true)
     public long count() {
@@ -23,8 +25,10 @@ public class MarketSupport {
         return marketMemberRepository.findByUsername(username);
     }
 
-
-
+    @Transactional(readOnly = true)
+    public long countProducts(){
+        return productRepository.count();
+    }
 
     @Transactional(readOnly = true)
     public Optional<MarketMember> findById(Integer id) {
