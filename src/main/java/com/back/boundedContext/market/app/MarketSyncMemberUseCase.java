@@ -2,6 +2,9 @@ package com.back.boundedContext.market.app;
 
 import com.back.boundedContext.market.domain.MarketMember;
 import com.back.boundedContext.market.out.MarketMemberRepository;
+import com.back.global.EventPublisher.EventPublisher;
+import com.back.shared.market.dto.MarketMemberDto;
+import com.back.shared.market.event.MarketMemberCreatedEvent;
 import com.back.shared.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,9 +13,13 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class MarketSyncMemberUseCase {
     private final MarketMemberRepository marketMemberRepository;
+    private final EventPublisher eventPublisher;
 
-    public MarketMember syncMember(MemberDto member){
-        MarketMember marketMember = marketMemberRepository.save(
+    public MarketMember syncMember(MemberDto member) {
+        boolean isNew = !marketMemberRepository.existsById(member.getId());
+
+        MarketMember _member = marketMemberRepository.save(
+
                 new MarketMember(
                         member.getUsername(),
                         "",
@@ -24,6 +31,14 @@ public class MarketSyncMemberUseCase {
                 )
         );
 
-        return marketMember;
+        if (isNew) {
+            eventPublisher.publish(
+                    new MarketMemberCreatedEvent(
+                            new MarketMemberDto(_member)
+                    )
+            );
+        }
+
+        return _member;
     }
 }

@@ -1,6 +1,7 @@
 package com.back.boundedContext.market.in;
 
 import com.back.boundedContext.market.app.MarketMemberFacade;
+import com.back.boundedContext.market.domain.Cart;
 import com.back.boundedContext.market.domain.MarketMember;
 import com.back.boundedContext.market.domain.Product;
 import com.back.shared.post.dto.PostDto;
@@ -36,6 +37,7 @@ public class MarketDataInit {
     public ApplicationRunner marketDataInitApplicationRunner() {
         return args -> {
             self.makeBaseProducts();
+            self.makeBaseCartItems();
         };
     }
 
@@ -115,5 +117,37 @@ public class MarketDataInit {
                 35_000,
                 35_000
         );
+    }
+
+    @Transactional
+    public void makeBaseCartItems() {
+        MarketMember user1Member = marketMemberFacade.findByUsername("user1").get();
+        MarketMember user2Member = marketMemberFacade.findByUsername("user2").get();
+        MarketMember user3Member = marketMemberFacade.findByUsername("user3").get();
+
+        Cart cart1 = marketMemberFacade.findCartByBuyer(user1Member).get();
+        Cart cart2 = marketMemberFacade.findCartByBuyer(user2Member).get();
+        Cart cart3 = marketMemberFacade.findCartByBuyer(user3Member).get();
+
+        Product product1 = marketMemberFacade.findProductById(1).get();
+        Product product2 = marketMemberFacade.findProductById(2).get();
+        Product product3 = marketMemberFacade.findProductById(3).get();
+        Product product4 = marketMemberFacade.findProductById(4).get();
+        Product product5 = marketMemberFacade.findProductById(5).get();
+        Product product6 = marketMemberFacade.findProductById(6).get();
+
+        if (cart1.hasItems()) return;
+
+        cart1.addItem(product1);
+        cart1.addItem(product2);
+        cart1.addItem(product3);
+        cart1.addItem(product4);
+
+        cart2.addItem(product1);
+        cart2.addItem(product2);
+        cart2.addItem(product3);
+
+        cart3.addItem(product1);
+        cart3.addItem(product2);
     }
 }
