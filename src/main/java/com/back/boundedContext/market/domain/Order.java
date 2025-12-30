@@ -34,6 +34,20 @@ public class Order extends BaseIdAndTime {
     @OneToMany(mappedBy = "order", cascade = {PERSIST, REMOVE}, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 
+    public OrderDto toDto(){
+        return new OrderDto(
+                getId(),
+                getCreateDate(),
+                getModifyDate(),
+                getBuyer().getId(),
+                getBuyer().getUsername(),
+                getPrice(),
+                getSalePrice(),
+                getRequestPaymentDate(),
+                getPaymentDate()
+        );
+    }
+
     public Order(Cart cart) {
         this.buyer = cart.getBuyer();
 
@@ -78,7 +92,7 @@ public class Order extends BaseIdAndTime {
 
         publishEvent(
                 new MarketOrderPaymentRequestedEvent(
-                        new OrderDto(this),
+                        toDto(),
                         pgPaymentAmount
                 )
         );
@@ -87,4 +101,6 @@ public class Order extends BaseIdAndTime {
     public void cancelRequestPayment() {
         requestPaymentDate = null;
     }
+
+
 }

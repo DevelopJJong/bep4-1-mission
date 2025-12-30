@@ -3,7 +3,6 @@ package com.back.boundedContext.cash.app;
 import com.back.boundedContext.cash.domain.CashMember;
 import com.back.boundedContext.cash.out.CashMemberRepository;
 import com.back.global.EventPublisher.EventPublisher;
-import com.back.shared.cash.dto.CashMemberDto;
 import com.back.shared.cash.event.CashMemberCreatedEvent;
 import com.back.shared.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +31,7 @@ public class CashSyncMemberUseCase {
 
         if(isNew){
             eventPublisher.publish(new CashMemberCreatedEvent(
-                    new CashMemberDto(cashMember)
+                    cashMember.toDto()
             ));
         }
         return cashMember;

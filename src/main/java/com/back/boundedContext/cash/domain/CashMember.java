@@ -1,5 +1,6 @@
 package com.back.boundedContext.cash.domain;
 
+import com.back.shared.cash.dto.CashMemberDto;
 import com.back.shared.member.domain.ReplicaMember;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -14,6 +15,16 @@ import java.time.LocalDateTime;
 public class CashMember extends ReplicaMember {
     public CashMember(String username, String password, String nickname, int id, LocalDateTime createdAt, LocalDateTime updatedAt, int activityScore) {
             super(username, password, nickname, id, createdAt, updatedAt, activityScore);
+    }
 
+    public CashMemberDto toDto(){
+        return new CashMemberDto(
+                getId(),
+                getCreateDate(),
+                getModifyDate(),
+                getUsername(),
+                getNickname(),
+                getActivityScore()
+        );
     }
 }

@@ -1,8 +1,7 @@
 package com.back.boundedContext.post.domain;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.global.jpa.entity.BaseIdAndTime;
-import com.back.shared.post.dto.PostCommentDto;
+import com.back.shared.post.dto.PostDto;
 import com.back.shared.post.event.PostCommentCreatedEvent;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,6 +27,18 @@ public class Post extends BaseIdAndTime {
         this.member = member;
     }
 
+    public PostDto toDto() {
+        return new PostDto(
+                getId(),
+                getCreateDate(),
+                getModifyDate(),
+                getMember().getId(),
+                getMember().getUsername(),
+                getTitle(),
+                getContent()
+        );
+    }
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comment = new ArrayList<>();
 
@@ -36,7 +47,7 @@ public class Post extends BaseIdAndTime {
 
         comment.add(comments);
 
-        publishEvent(new PostCommentCreatedEvent(new PostCommentDto(comments)));
+        publishEvent(new PostCommentCreatedEvent(comments.toDto()));
         return comments;
     }
 

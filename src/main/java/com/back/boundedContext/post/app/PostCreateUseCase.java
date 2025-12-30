@@ -6,7 +6,6 @@ import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.EventPublisher.EventPublisher;
 import com.back.global.rsData.RsData;
 import com.back.shared.member.out.MemberApiClient;
-import com.back.shared.post.dto.PostDto;
 import com.back.shared.post.event.PostCreatedEvent;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class PostCreateUseCase {
         Post post = postRepository.save(new Post(title, content, member));
 
         eventPublisher.publish(
-                new PostCreatedEvent(new PostDto(post))
+                new PostCreatedEvent(post.toDto())
         );
 
         String randomSecureTip = memberApiClient.getRandomSecureTip();

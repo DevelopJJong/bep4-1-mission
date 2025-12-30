@@ -1,5 +1,6 @@
 package com.back.boundedContext.market.domain;
 
+import com.back.shared.market.dto.MarketMemberDto;
 import com.back.shared.member.domain.ReplicaMember;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,6 +16,16 @@ import java.time.LocalDateTime;
 public class MarketMember extends ReplicaMember {
     public MarketMember(String username, String password, String nickname, int id, LocalDateTime createdAt, LocalDateTime updatedAt, int activityScore) {
         super(username, password, nickname, id, createdAt, updatedAt, activityScore);
+    }
 
+    public MarketMemberDto toDto() {
+        return new MarketMemberDto(
+                getId(),
+                getCreateDate(),
+                getModifyDate(),
+                getUsername(),
+                getNickname(),
+                getActivityScore()
+        );
     }
 }
