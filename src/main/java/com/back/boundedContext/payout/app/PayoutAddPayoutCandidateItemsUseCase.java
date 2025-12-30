@@ -3,7 +3,6 @@ package com.back.boundedContext.payout.app;
 import com.back.boundedContext.payout.domain.PayoutCandidateItem;
 import com.back.boundedContext.payout.domain.PayoutEventType;
 import com.back.boundedContext.payout.domain.PayoutMember;
-import com.back.boundedContext.payout.domain.PayoutSupport;
 import com.back.boundedContext.payout.out.PayoutCandidateItemRepository;
 import com.back.shared.market.dto.OrderDto;
 import com.back.shared.market.dto.OrderItemDto;
@@ -36,7 +35,7 @@ public class PayoutAddPayoutCandidateItemsUseCase {
             OrderDto order,
             OrderItemDto orderItem
     ) {
-        PayoutMember holding = payoutSupport.findHolingMember().get();
+        PayoutMember system = payoutSupport.findSystemMember().get();
         PayoutMember buyer = payoutSupport.findMemberById(orderItem.getBuyerId()).get();
         PayoutMember seller = payoutSupport.findMemberById(orderItem.getSellerId()).get();
 
@@ -46,7 +45,7 @@ public class PayoutAddPayoutCandidateItemsUseCase {
                 orderItem.getId(),
                 order.getPaymentDate(),
                 buyer,
-                holding,
+                system,
                 orderItem.getPayoutFee()
         );
 
