@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/member/api/v1/members")
+@RequestMapping("/api/v1/member/members")
 @RequiredArgsConstructor
 public class ApiV1MemberController {
     private final MemberFacade memberFacade;
 
     @GetMapping("randomSecureTip")
     @Transactional(readOnly = true)
-    public String getRandomSecureTip(){
+    public String getRandomSecureTip() {
         return memberFacade.getRandomSecureTip();
     }
 }

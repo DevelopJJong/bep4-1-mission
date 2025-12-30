@@ -81,7 +81,8 @@ public class MarketMemberFacade {
     }
 
     @Transactional
-    public void requestPayment(Order order, long pgPaymentAmount) {
+    public void requestPayment(int orderId, long pgPaymentAmount) {
+        Order order = marketSupport.findOrderById(orderId).get();
         order.requestPayment(pgPaymentAmount);
     }
 

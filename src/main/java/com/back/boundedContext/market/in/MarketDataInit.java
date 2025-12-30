@@ -189,6 +189,6 @@ public class MarketDataInit {
 
         if (order1.isPaid()) return;
 
-        marketMemberFacade.requestPayment(order1, 0);
+        marketMemberFacade.requestPayment(1, 0);
     }
 }

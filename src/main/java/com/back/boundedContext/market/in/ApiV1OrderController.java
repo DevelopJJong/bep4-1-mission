@@ -65,7 +65,7 @@ public class ApiV1OrderController {
                 reqBody.amount()
         );
 
-        marketMemberFacade.requestPayment(order, reqBody.amount());
+        marketMemberFacade.requestPayment(id, reqBody.amount());
 
         return new RsData<>("202-1", "결제 프로세스가 시작되었습니다.");
     }
