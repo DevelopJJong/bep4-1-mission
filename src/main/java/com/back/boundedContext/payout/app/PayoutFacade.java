@@ -15,6 +15,7 @@ public class PayoutFacade {
     private final PayoutAddPayoutCandidateItemsUseCase payoutAddPayoutCandidateItemsUseCase;
     private final PayoutCreatePayoutUseCase payoutCreatePayoutUseCase;
 
+    @Transactional
     public PayoutMember syncMember(MemberDto member){
         return payoutSyncMemberUseCase.syncMember(member);
     }
