@@ -36,6 +36,10 @@ public class MarketMemberEventListener {
     public void handle(MarketMemberCreatedEvent event) {
         marketMemberFacade.createCart(event.getMember());
     }
+//    @EventListener
+//    public void sniff(Object event) {
+//        System.out.println("EVENT = " + event.getClass().getName());
+//    }
 
     @TransactionalEventListener(phase = AFTER_COMMIT)
     @Transactional(propagation = REQUIRES_NEW)

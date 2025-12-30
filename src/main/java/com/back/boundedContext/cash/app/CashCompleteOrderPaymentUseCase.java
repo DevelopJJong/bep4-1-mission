@@ -8,6 +8,7 @@ import com.back.shared.cash.event.CashOrderPaymentSucceededEvent;
 import com.back.shared.market.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class CashCompleteOrderPaymentUseCase {
     private final CashSupport cashSupport;
     private final EventPublisher eventPublisher;
 
+    @Transactional
     public void completeOrderPayment(OrderDto order, long pgPaymentAmount) {
         Wallet customerWallet = cashSupport.findWalletByHolderId(order.getCustomerId()).get();
         Wallet holdingWallet = cashSupport.findHoldingWallet().get();

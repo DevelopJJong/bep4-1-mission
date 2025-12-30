@@ -18,6 +18,7 @@ import static org.springframework.transaction.event.TransactionPhase.AFTER_COMMI
 public class PayoutEventListener {
     private final PayoutFacade payoutFacade;
 
+
     @TransactionalEventListener(phase = AFTER_COMMIT)
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(MemberJoinedEvent event) {
@@ -41,4 +42,5 @@ public class PayoutEventListener {
     public void handle(MarketOrderPaymentCompletedEvent event) {
         payoutFacade.addPayoutCandidateItems(event.getOrder());
     }
+
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "PAYOUT_PAYOUT")
 @NoArgsConstructor
+@Getter
 public class Payout extends BaseIdAndTime {
     @ManyToOne(fetch = LAZY)
     private PayoutMember payee;

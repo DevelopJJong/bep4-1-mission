@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface PostMemberRepository extends JpaRepository<PostMember, Integer> {
     Optional<PostMember> findByUsername(String username);
-
 }
