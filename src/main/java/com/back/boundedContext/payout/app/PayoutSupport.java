@@ -5,6 +5,7 @@ import com.back.boundedContext.payout.domain.PayoutCandidateItem;
 import com.back.boundedContext.payout.domain.PayoutMember;
 import com.back.boundedContext.payout.out.PayoutCandidateItemRepository;
 import com.back.boundedContext.payout.out.PayoutMemberRepository;
+import com.back.boundedContext.payout.out.PayoutRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class PayoutSupport {
+    private final PayoutRepository payoutRepository;
     private final PayoutMemberRepository payoutMemberRepository;
     private final PayoutCandidateItemRepository payoutCandidateItemRepository;
 
@@ -32,4 +34,5 @@ public class PayoutSupport {
     public List<PayoutCandidateItem> findPayoutCandidateItems() {
         return payoutCandidateItemRepository.findAll();
     }
+
 }

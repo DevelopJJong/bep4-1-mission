@@ -5,7 +5,6 @@ import com.back.boundedContext.payout.domain.PayoutMember;
 import com.back.global.rsData.RsData;
 import com.back.shared.market.dto.OrderDto;
 import com.back.shared.member.dto.MemberDto;
-import com.back.shared.payout.dto.PayoutMemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +18,17 @@ public class PayoutFacade {
     private final PayoutAddPayoutCandidateItemsUseCase payoutAddPayoutCandidateItemsUseCase;
     private final PayoutCreatePayoutUseCase payoutCreatePayoutUseCase;
     private final PayoutCollectPayoutItemsMoreUseCase payoutCollectPayoutItemsMoreUseCase;
+    private final PayoutCompletePayoutsMoreUseCase payoutCompletePayoutsMoreUseCase;
     private final PayoutSupport payoutSupport;
+
     @Transactional
     public PayoutMember syncMember(MemberDto member){
         return payoutSyncMemberUseCase.syncMember(member);
     }
 
     @Transactional
-    public void createPayout(PayoutMemberDto payee) {
-        payoutCreatePayoutUseCase.createPayout(payee);
+    public void createPayout(int payeeId) {
+        payoutCreatePayoutUseCase.createPayout(payeeId);
     }
 
     @Transactional
@@ -43,5 +44,10 @@ public class PayoutFacade {
     @Transactional(readOnly = true)
     public List<PayoutCandidateItem> findPayoutCandidateItems() {
         return payoutSupport.findPayoutCandidateItems();
+    }
+
+    @Transactional
+    public RsData<Integer> completePayoutsMore(int limit) {
+        return payoutCompletePayoutsMoreUseCase.completePayoutsMore(limit);
     }
 }

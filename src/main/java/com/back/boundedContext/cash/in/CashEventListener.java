@@ -1,10 +1,11 @@
 package com.back.boundedContext.cash.in;
 
-import com.back.boundedContext.cash.app.CashMemberFacade;
+import com.back.boundedContext.cash.app.CashFacade;
 import com.back.shared.cash.event.CashMemberCreatedEvent;
 import com.back.shared.market.event.MarketOrderPaymentRequestedEvent;
 import com.back.shared.member.event.MemberJoinedEvent;
 import com.back.shared.member.event.MemberModifiedEvent;
+import com.back.shared.payout.event.PayoutCompletedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,30 +16,36 @@ import static org.springframework.transaction.event.TransactionPhase.AFTER_COMMI
 
 @Component
 @RequiredArgsConstructor
-public class CashMemberEventListener {
-    private final CashMemberFacade cashMemberFacade;
+public class CashEventListener {
+    private final CashFacade cashFacade;
 
     @TransactionalEventListener(phase = AFTER_COMMIT)
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(MemberJoinedEvent event) {
-        cashMemberFacade.syncMember(event.getMember());
+        cashFacade.syncMember(event.getMember());
     }
 
     @TransactionalEventListener(phase = AFTER_COMMIT)
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(MemberModifiedEvent event) {
-        cashMemberFacade.syncMember(event.getMember());
+        cashFacade.syncMember(event.getMember());
     }
 
     @TransactionalEventListener(phase = AFTER_COMMIT)
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(CashMemberCreatedEvent event) {
-        cashMemberFacade.createWallet(event.getCashMember());
+        cashFacade.createWallet(event.getCashMember());
     }
 
     @TransactionalEventListener(phase = AFTER_COMMIT)
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(MarketOrderPaymentRequestedEvent event) {
-        cashMemberFacade.completeOrderPayment(event.getOrder(), event.getPgPaymentAmount());
+        cashFacade.completeOrderPayment(event.getOrder(), event.getPgPaymentAmount());
+    }
+
+    @TransactionalEventListener(phase = AFTER_COMMIT)
+    @Transactional(propagation = REQUIRES_NEW)
+    public void handle(PayoutCompletedEvent event) {
+        cashFacade.completePayout(event.getPayout());
     }
 }

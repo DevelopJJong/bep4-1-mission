@@ -26,9 +26,6 @@ public class PayoutAddPayoutCandidateItemsUseCase {
         marketApiClient.getOrderItems(order.getId())
                 .forEach(orderItem -> makePayoutCandidateItems(order, orderItem));
         List<OrderItemDto> items = marketApiClient.getOrderItems(order.getId());
-        items.forEach(item -> {
-            log.debug("orderItem.id : {}", item.getId());
-        });
     }
 
     private void makePayoutCandidateItems(

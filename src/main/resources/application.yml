@@ -13,6 +13,9 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+  batch:
+    job:
+      enabled: false
   jpa:
     hibernate:
       ddl-auto: update
@@ -46,7 +49,3 @@ custom:
         secretKey: ${TOSS_PAYMENTS_SECRET_KEY:}
     product:
       payoutRate: 90
-
-  batch:
-    job:
-      enabled: false

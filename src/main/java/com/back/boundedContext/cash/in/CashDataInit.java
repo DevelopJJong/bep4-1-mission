@@ -1,6 +1,6 @@
 package com.back.boundedContext.cash.in;
 
-import com.back.boundedContext.cash.app.CashMemberFacade;
+import com.back.boundedContext.cash.app.CashFacade;
 import com.back.boundedContext.cash.domain.CashLog;
 import com.back.boundedContext.cash.domain.CashMember;
 import com.back.boundedContext.cash.domain.Wallet;
@@ -16,11 +16,11 @@ import org.springframework.core.annotation.Order;
 @Slf4j
 public class CashDataInit {
     private final CashDataInit self;
-    private CashMemberFacade cashMemberFacade;
+    private CashFacade cashFacade;
 
-    public CashDataInit(@Lazy CashDataInit self, CashMemberFacade cashMemberFacade){
+    public CashDataInit(@Lazy CashDataInit self, CashFacade cashFacade){
         this.self = self;
-        this.cashMemberFacade = cashMemberFacade;
+        this.cashFacade = cashFacade;
     }
 
     @Bean
@@ -34,10 +34,10 @@ public class CashDataInit {
     @Transactional
     public void makeBaseCash(){
 
-        CashMember member1 = cashMemberFacade.findByUsername("user1").get();
-        CashMember member2 = cashMemberFacade.findByUsername("user2").get();
+        CashMember member1 = cashFacade.findByUsername("user1").get();
+        CashMember member2 = cashFacade.findByUsername("user2").get();
 
-        Wallet wallet1 = cashMemberFacade.findWalletByHolder(member1).get();
+        Wallet wallet1 = cashFacade.findWalletByHolder(member1).get();
 
         if (wallet1.hasBalance()) return;
 
@@ -45,7 +45,7 @@ public class CashDataInit {
         wallet1.deposit(100_000, CashLog.EventType.충전__무통장입금);
         wallet1.deposit(50_000, CashLog.EventType.충전__무통장입금);
 
-        Wallet wallet2 = cashMemberFacade.findWalletByHolder(member2).get();
+        Wallet wallet2 = cashFacade.findWalletByHolder(member2).get();
 
         if (wallet2.hasBalance()) return;
 
